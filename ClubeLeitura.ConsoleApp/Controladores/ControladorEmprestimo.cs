@@ -46,19 +46,17 @@ namespace ClubeLeitura.ConsoleApp.Controladores
             return SelecionarEmprestimoPorId(idEmprestimo) != null;
         }
 
-        internal Emprestimo[] SelecionarEmprestimosEmAberto()
+        internal List<Emprestimo> SelecionarEmprestimosEmAberto()
         {
-            Emprestimo[] emprestimosEmAberto = new Emprestimo[QtdEmprestimosEmAberto()];
+            List<Emprestimo> emprestimosEmAberto = new List<Emprestimo>(QtdEmprestimosEmAberto());
 
             List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
-
-            int i = 0;
 
             foreach (Emprestimo e in todosEmprestimos)
             {
                 if (e.estaAberto)
                 {
-                    emprestimosEmAberto[i++] = e;
+                    emprestimosEmAberto.Add(e);
                 }
             }
 
@@ -87,8 +85,6 @@ namespace ClubeLeitura.ConsoleApp.Controladores
             List<Emprestimo> emprestimosFechados = new List<Emprestimo>(QtdEmprestimosFechados(mes));
 
             List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
-
-            int i = 0;
 
             foreach (Emprestimo e in todosEmprestimos)
             {
