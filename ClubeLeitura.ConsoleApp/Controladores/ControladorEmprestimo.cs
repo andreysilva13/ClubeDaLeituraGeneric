@@ -1,10 +1,19 @@
 ﻿using ClubeLeitura.ConsoleApp.Dominio;
 using System;
+using System.Collections.Generic;
 
 namespace ClubeLeitura.ConsoleApp.Controladores
 {
-    public class ControladorEmprestimo : ControladorBase
+    public class ControladorEmprestimo
     {
+        private List<Emprestimo> registros;
+        private int ultimoId;
+
+        public ControladorEmprestimo()
+        {
+            registros = new List<Emprestimo>();
+        }
+
         public string RegistrarEmprestimo(Amigo amigo, Revista revista, DateTime data)
         {
             Emprestimo emprestimo = new Emprestimo(amigo, revista, data);
@@ -16,9 +25,8 @@ namespace ClubeLeitura.ConsoleApp.Controladores
                 amigo.RegistrarEmprestimo(emprestimo);
                 revista.RegistrarEmprestimo(emprestimo);
 
-                int posicao = ObterPosicaoVaga();
-                emprestimo.id = NovoId();
-                registros[posicao] = emprestimo;
+                emprestimo.id = NovoIdEmprestimo();
+                registros.Add(emprestimo);
             }
 
             return resultadoValidacao;
@@ -26,7 +34,7 @@ namespace ClubeLeitura.ConsoleApp.Controladores
 
         internal bool RegistrarDevolucao(int idEmprestimo, DateTime data)
         {
-            Emprestimo emprestimo = (Emprestimo)SelecionarRegistroPorId(idEmprestimo);
+            Emprestimo emprestimo = (Emprestimo)SelecionarEmprestimoPorId(idEmprestimo);
 
             emprestimo.Fechar(data);
 
@@ -35,14 +43,14 @@ namespace ClubeLeitura.ConsoleApp.Controladores
 
         public bool ExisteEmprestimoComEsteId(int idEmprestimo)
         {
-            return SelecionarRegistroPorId(idEmprestimo) != null;
+            return SelecionarEmprestimoPorId(idEmprestimo) != null;
         }
 
         internal Emprestimo[] SelecionarEmprestimosEmAberto()
         {
             Emprestimo[] emprestimosEmAberto = new Emprestimo[QtdEmprestimosEmAberto()];
 
-            object[] todosEmprestimos = SelecionarTodosRegistros();
+            List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
 
             int i = 0;
 
@@ -59,7 +67,7 @@ namespace ClubeLeitura.ConsoleApp.Controladores
 
         private int QtdEmprestimosEmAberto()
         {
-            object[] todosEmprestimos = SelecionarTodosRegistros();
+            List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
 
             int numeroEmprestimosEmAberto = 0;
 
@@ -74,11 +82,11 @@ namespace ClubeLeitura.ConsoleApp.Controladores
             return numeroEmprestimosEmAberto;
         }
 
-        internal Emprestimo[] SelecionarEmprestimosFechados(int mes)
+        internal List<Emprestimo> SelecionarEmprestimosFechados(int mes)
         {
-            Emprestimo[] emprestimosFechados = new Emprestimo[QtdEmprestimosFechados(mes)];
+            List<Emprestimo> emprestimosFechados = new List<Emprestimo>(QtdEmprestimosFechados(mes));
 
-            object[] todosEmprestimos = SelecionarTodosRegistros();
+            List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
 
             int i = 0;
 
@@ -86,7 +94,7 @@ namespace ClubeLeitura.ConsoleApp.Controladores
             {
                 if (e.EstaFechado() && e.Mes == mes)
                 {
-                    emprestimosFechados[i++] = e;
+                    emprestimosFechados[i] = e;
                 }
             }
 
@@ -95,7 +103,7 @@ namespace ClubeLeitura.ConsoleApp.Controladores
 
         private int QtdEmprestimosFechados(int mes)
         {
-            object[] todosEmprestimos = SelecionarTodosRegistros();
+            List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
 
             int numeroEmprestimosFechado = 0;
 
@@ -109,5 +117,30 @@ namespace ClubeLeitura.ConsoleApp.Controladores
 
             return numeroEmprestimosFechado;
         }
+
+        public Emprestimo SelecionarEmprestimoPorId(int id)
+        {
+            Emprestimo selecionado = null;
+
+            foreach (Emprestimo item in registros)
+            {
+                if (item.id == id)
+                {
+                    selecionado = item;
+                }
+            }
+            return selecionado;
+        }
+
+        public List<Emprestimo> SelecionarTodosEmprestimos()
+        {
+            return registros;
+        }
+
+        protected int NovoIdEmprestimo()
+        {
+            return ++ultimoId;
+        }
+
     }
 }
