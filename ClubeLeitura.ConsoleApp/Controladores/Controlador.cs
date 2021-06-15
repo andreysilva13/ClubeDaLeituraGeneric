@@ -36,6 +36,7 @@ namespace ClubeLeitura.ConsoleApp.Controladores
                     if (registros[i].id == id)
                     {
                         registros[i] = registro;
+                        registros[i].id = id;
                         break;
                     }
                 }

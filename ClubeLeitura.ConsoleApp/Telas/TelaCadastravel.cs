@@ -55,7 +55,7 @@ namespace ClubeLeitura.ConsoleApp.Telas
 
             string resultadoValidacao = controlador.Editar(id, t);
 
-            if (resultadoValidacao == "VALIDO")
+            if (resultadoValidacao == "ESTA_VALIDO")
                 ApresentarMensagem("Registro editado com sucesso", TipoMensagem.Sucesso);
             else
             {
