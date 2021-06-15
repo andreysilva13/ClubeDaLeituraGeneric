@@ -46,30 +46,30 @@ namespace ClubeLeitura.ConsoleApp
                     else if (opcao == "4")
                         tela.Excluir();
                 }
-                //else if (telaSelecionada is TelaEmprestimo)
-                //{
-                //    TelaEmprestimo telaEmprestimo = (TelaEmprestimo)telaSelecionada;
+                else if (telaSelecionada is TelaEmprestimo)
+                {
+                    TelaEmprestimo telaEmprestimo = (TelaEmprestimo)telaSelecionada;
 
-                //    if (opcao == "1")
-                //        telaEmprestimo.RegistrarEmprestimo();
+                    if (opcao == "1")
+                        telaEmprestimo.RegistrarEmprestimo();
 
-                //    else if (opcao == "2")
-                //        telaEmprestimo.RegistrarDevolucao();
+                    else if (opcao == "2")
+                        telaEmprestimo.RegistrarDevolucao();
 
-                //    else if (opcao == "3")
-                //    {
-                //        bool temRegistros = telaEmprestimo.VisualizarEmprestimosAbertos();
-                //        if (temRegistros)
-                //            Console.ReadLine();
-                //    }
-                //    else if (opcao == "4")
-                //    {
-                //        bool temRegistros = telaEmprestimo.VisualizarEmprestimosFechados();
-                //        if (temRegistros)
-                //            Console.ReadLine();
-                //    }
+                    else if (opcao == "3")
+                    {
+                        bool temRegistros = telaEmprestimo.VisualizarEmprestimosAbertos();
+                        if (temRegistros)
+                            Console.ReadLine();
+                    }
+                    else if (opcao == "4")
+                    {
+                        bool temRegistros = telaEmprestimo.VisualizarEmprestimosFechados();
+                        if (temRegistros)
+                            Console.ReadLine();
+                    }
 
-                //}
+                }
                 Console.Clear();
             }
         }

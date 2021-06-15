@@ -9,25 +9,25 @@ namespace ClubeLeitura.ConsoleApp.Telas
         private readonly ControladorAmigo controladorAmigo;
         private readonly ControladorCaixa controladorCaixa;
         private readonly ControladorRevista controladorRevista;
-        //private readonly ControladorEmprestimo controladorEmprestimo;
+        private readonly ControladorEmprestimo controladorEmprestimo;
 
         private readonly TelaCaixa telaCaixa;
         private readonly TelaRevista telaRevista;
         private readonly TelaAmigo telaAmigo;
-        //private readonly TelaEmprestimo telaEmprestimo;
+        private readonly TelaEmprestimo telaEmprestimo;
 
         public TelaPrincipal() : base("Tela Principal")
         {
             controladorAmigo = new ControladorAmigo();
             controladorCaixa = new ControladorCaixa();
             controladorRevista = new ControladorRevista();
-            //controladorEmprestimo = new ControladorEmprestimo();
+            controladorEmprestimo = new ControladorEmprestimo();
 
             telaAmigo = new TelaAmigo(controladorAmigo);
             telaCaixa = new TelaCaixa(controladorCaixa);
             telaRevista = new TelaRevista(controladorRevista, controladorCaixa, telaCaixa);
-            //telaEmprestimo = new TelaEmprestimo(controladorEmprestimo, controladorAmigo,
-            //    controladorRevista, telaRevista, telaAmigo);
+            telaEmprestimo = new TelaEmprestimo(controladorEmprestimo, controladorAmigo,
+                controladorRevista, telaRevista, telaAmigo);
 
         }
 
@@ -58,8 +58,8 @@ namespace ClubeLeitura.ConsoleApp.Telas
                 if (opcao == "3")
                     telaSelecionada = telaRevista;
 
-                //if (opcao == "4")
-                //    telaSelecionada = telaEmprestimo;
+                if (opcao == "4")
+                    telaSelecionada = telaEmprestimo;
 
                 else if (opcao.Equals("s", StringComparison.OrdinalIgnoreCase))
                     telaSelecionada = null;
