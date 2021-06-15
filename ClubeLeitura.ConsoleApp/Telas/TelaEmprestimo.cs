@@ -164,9 +164,9 @@ namespace ClubeLeitura.ConsoleApp.Telas
             Console.Write("Digite o número do mês: ");
             int numeroMes = Convert.ToInt32(Console.ReadLine());
 
-            List<Emprestimo> emprestimos = controladorEmprestimo.SelecionarEmprestimosFechados(numeroMes);
+            Emprestimo[] emprestimos = controladorEmprestimo.SelecionarEmprestimosFechados(numeroMes);
 
-            if (emprestimos.Count == 0)
+            if (emprestimos.Length == 0)
             {
                 ApresentarMensagem("Nenhum empréstimo fechado neste mês", TipoMensagem.Atencao);
                 return false;

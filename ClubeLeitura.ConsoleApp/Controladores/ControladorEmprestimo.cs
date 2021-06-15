@@ -82,9 +82,9 @@ namespace ClubeLeitura.ConsoleApp.Controladores
             return numeroEmprestimosEmAberto;
         }
 
-        internal List<Emprestimo> SelecionarEmprestimosFechados(int mes)
+        internal Emprestimo[] SelecionarEmprestimosFechados(int mes)
         {
-            List<Emprestimo> emprestimosFechados = new List<Emprestimo>(QtdEmprestimosFechados(mes));
+            Emprestimo[] emprestimosFechados = new Emprestimo[QtdEmprestimosFechados(mes)];
 
             List<Emprestimo> todosEmprestimos = SelecionarTodosEmprestimos();
 
@@ -94,7 +94,7 @@ namespace ClubeLeitura.ConsoleApp.Controladores
             {
                 if (e.EstaFechado() && e.Mes == mes)
                 {
-                    emprestimosFechados[i] = e;
+                    emprestimosFechados[i++] = e;
                 }
             }
 
